@@ -1,0 +1,34 @@
+<app-timeline>
+  <app-timeline-item
+    *ngFor="let period of dataSource; let i = index"
+    [currentIndex]="i"
+    [isActive]="getStatus(period?.startDate, period?.endDate) === statuses.ACTIVE"
+  >
+    <app-timeline-date>
+      {{ period.startDate | date: dayDateFormat }} - {{ period.endDate ? (period.endDate | date: dayDateFormat) :
+      ("positions.projectPositionTable.present" | translate) }}
+    </app-timeline-date>
+
+    <app-timeline-item-header>
+      {{ period?.cardName.name | empty }}
+    </app-timeline-item-header>
+
+    <app-timeline-item-content>
+      <div class="data-row">
+        <div>{{ "status" | translate }}</div>
+        <div
+          [class]="
+                getCardStatus(period?.startDate, period?.endDate)
+              "
+          class="status"
+        >
+          {{ getCardStatus(period?.startDate, period?.endDate) | titlecase }}
+        </div>
+      </div>
+      <div class="data-row" *ngIf="canSeeCards">
+        <div>{{ "positions.cardPositionTable.cardPositionName" | translate }}</div>
+        <div>{{ period?.cardPositionName.name | empty }}</div>
+      </div>
+    </app-timeline-item-content>
+  </app-timeline-item>
+</app-timeline>

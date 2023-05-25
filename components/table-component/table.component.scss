@@ -1,0 +1,15 @@
+@import 'table-common';
+@import 'toolbar-mixin';
+@import 'buttons';
+
+:host {
+  @include toolbar();
+
+  .table {
+    width: 100%;
+  }
+
+  .table-container {
+    overflow: scroll;
+  }
+}

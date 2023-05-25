@@ -1,0 +1,57 @@
+<div class="list-wrapper" [formGroup]="queryParamsForm">
+  <div class="toolbar">
+    <app-search-input formControlName="search" class="toolbar-item"></app-search-input>
+
+    <app-table-filter-btn class="toolbar-item"></app-table-filter-btn>
+
+    <button
+      class="primary-btn toolbar-item"
+      mat-button
+      (click)="uploadFile(fileInput)"
+    >
+      <mat-icon>add</mat-icon>
+      Upload
+    </button>
+    <input type="file" hidden #fileInput />
+  </div>
+
+  <div class="table-wrapper">
+    <div class="table-container">
+      <table
+        mat-table
+        multiTemplateDataRows
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortData($event)"
+        class="table"
+      >
+        <ng-container matColumnDef="Period">
+          <th mat-header-cell *matHeaderCellDef>{{'period' | translate}}</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.period?.dateFrom | date: dayDateFormat }} - {{ element?.period?.dateTo | date:
+            dayDateFormat }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Department">
+          <th mat-header-cell *matHeaderCellDef>{{'departmentPlural' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ concatWithComma(element.department) | empty }}</td>
+        </ng-container>
+      </table>
+
+      <app-empty-list *ngIf="dataSource?.data && !totalElements">{{'emptyTableState' | translate}}</app-empty-list>
+
+      <app-skeleton *ngIf="!dataSource?.data" [skeletonStructure]="skeleton"></app-skeleton>
+
+      <mat-paginator
+        [length]="totalElements"
+        [pageSize]="queryParamsForm.get('size').value"
+        [pageIndex]="queryParamsForm.get('page').value"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="getNextBatch($event)"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+
+  </div>
+</div>

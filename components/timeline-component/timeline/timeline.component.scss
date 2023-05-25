@@ -1,0 +1,27 @@
+@import "src/styles/no-table-data";
+@import "src/styles/timeline-styles";
+@import "absence-mixins";
+@import "color-maps";
+
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  background-color: $coral;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+}
+
+.side.timeline::after {
+  left: 26px;
+  top: 25px;
+  height: 100%;
+}

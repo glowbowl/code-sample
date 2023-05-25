@@ -1,0 +1,19 @@
+<div class="card mb-4">
+  <div class="box">
+    <div class="percent">
+      <svg>
+        <circle [style.stroke]="strokeColorBg" cx="70" cy="70" r="70"></circle>
+        <circle
+          [style.stroke]="strokeColor"
+          [style.stroke-dashoffset]="'calc(440px - (440px * ' + percent + ' / 100)'"
+          cx="70"
+          cy="70"
+          r="70"
+        ></circle>
+      </svg>
+      <div class="number">
+        <div class="number-value">{{percent}}<span class="number-percent">%</span></div>
+      </div>
+    </div>
+  </div>
+</div>
